@@ -1,0 +1,17 @@
+{% extends 'bootstrap/base.html' %}
+
+{% block head %}
+    {{ super() }}
+    {% include '_head.html' %}
+{% endblock %}
+{% block navbar %}
+    {{ nav.top.render() }}
+{% endblock %}
+{% block content %}
+    <header>{% block header %}{% endblock %}</header>
+{% endblock %}
+{% block footer %}
+    <footer>
+            Copyright 2018 by <a>Ricky</a>
+    </footer>
+{% endblock %}
