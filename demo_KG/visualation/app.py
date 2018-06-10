@@ -6,6 +6,9 @@ from flask_nav import Nav
 from flask_nav.elements import *
 import pandas as pd
 from pyecharts import Graph
+import pyecharts.echarts.events as events
+from pyecharts_javascripthon.dom import window
+from pyecharts_javascripthon.dom import Document
 
 app = Flask(__name__)
 app.config.from_pyfile('config')
@@ -16,7 +19,7 @@ manager = Manager(app)
 
 nav.register_element('top', Navbar('知识图谱', View('主页', 'index')))
 
-REMOTE_HOST = "https://pyecharts.github.io/assets/js"
+REMOTE_HOST = "https://cdn.bootcss.com/echarts/4.1.0.rc2"
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
@@ -31,6 +34,17 @@ def index():
                                host=REMOTE_HOST,script_list=graph.get_js_dependencies())
     return render_template('index.html', title='Hello World', form=form)
 
+def on_click(params):
+    form = document.createElement("form");
+    form.action = window.location.href;
+    form.method = 'POST';
+    input = document.createElement("input");
+    input.type = "hidden";
+    input.name = '查询内容';
+    input.value = params.name;
+    form.appendChild(input);
+    document.body.appendChild(form);
+    form.submit();
 
 def create_Graph(data):
     # 先查找出搜索内容，并将三元组存入links
@@ -71,7 +85,7 @@ def create_Graph(data):
     graph.add('', nodes, links, categories=['个人', '企业'], label_pos='right', graph_repulsion=400,
               is_legend_show=True, line_curve=0, label_text_color=None, is_label_show=True,
               is_symbol_show=True)
-
+    graph.on(events.MOUSE_CLICK, on_click)
     return graph
 
 if __name__ == '__main__':
