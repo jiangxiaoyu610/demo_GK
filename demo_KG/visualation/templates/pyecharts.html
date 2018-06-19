@@ -10,7 +10,13 @@
 </head>
 
 <body>
-  {{ nav.top.render() }}
+  <li><a href="/">Home</a></li>
+  <form action="" method="post">
+            <em>请输入查询内容</em>
+            <input type="text", name="查询内容">
+            <input type="submit", value="查询">
+        </p>
+  </form>
   {{ myechart|safe }}
 </body>
 
