@@ -71,7 +71,7 @@ def create_Graph(data):
             nodes.append({'name': company.iloc[i, 1], 'category': 1, 'symbolSize': 10, 'draggable': True, 'symbol': 'square'})
 
         # 画图
-        graph = Graph('知识图谱服务', width=1200, height=600)
+        graph = Graph('', width=1200, height=600)
         graph.add('', nodes, links, categories=['个人', '企业'], label_pos='right', graph_repulsion=200,
                       is_legend_show=True, line_curve=0, label_text_color=None, is_label_show=True,
                       is_symbol_show=True, graph_edge_symbol=[None, 'arrow'])
